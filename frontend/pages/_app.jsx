@@ -7,6 +7,9 @@ import { Loader } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
 
+
+
+
 const App = ({ Component, pageProps }) => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   const { theme } = useThemeStore();
