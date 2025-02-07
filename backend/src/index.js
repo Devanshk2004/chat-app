@@ -21,7 +21,7 @@ const __dirname = path.resolve(); // Fix variable name
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-   origin: process.env.FRONTEND_URL, //'http://localhost:3000',
+   origin: 'http://localhost:3000',
    credentials: true
 }
 ))
@@ -37,6 +37,19 @@ const handle = nextApp.getRequestHandler();*/
   app.all("*", (req, res) => {
     return handle(req, res);
 });*/
+
+
+
+// In backend/index.js (replace original production block)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/out"))); // Next.js export directory
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/out", "index.html"));
+  });
+}
+
+
 
 server.listen(PORT, () => {
      console.log("Server is running on PORT:" + PORT)
