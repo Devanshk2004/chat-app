@@ -42,13 +42,17 @@ const handle = nextApp.getRequestHandler();*/
 
 // In backend/index.js (replace original production block)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/out"))); // Next.js export directory
+  // Path to Next.js static files
+  const staticPath = path.join(__dirname, "../frontend/out");
   
+  // Serve static files
+  app.use(express.static(staticPath));
+
+  // Handle SPA routing (serve index.html for all routes)
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/out", "index.html"));
+    res.sendFile(path.join(staticPath, "index.html"));
   });
 }
-
 
 
 server.listen(PORT, () => {
