@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }) => {
 
   useEffect(() => {
     if (!isCheckingAuth && !authUser && router.pathname !== '/login') {
-      router.push('/login');
+      router.replace('/login');
     }
   }, [isCheckingAuth, authUser, router.pathname]);
 
